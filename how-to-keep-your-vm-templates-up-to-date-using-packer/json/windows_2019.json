@@ -1,0 +1,85 @@
+{
+  "variables": {
+    "vsphere_server": "vcenter@local",
+    "vsphere_user": "administrator@vsphere.local",
+    "vsphere_password": "YourSecretPasswordHere",
+    "vsphere_template_name": "Win2019Core",
+    "vsphere_folder": "",
+    "vsphere_dc_name": "",
+    "vsphere_compute_cluster": "",
+    "vsphere_resource_pool": "",
+    "vsphere_host": "esxi01.vsphere.local",
+    "vsphere_portgroup_name": "",
+    "vsphere_datastore": "",
+    "windows_admin_password": "",
+    "cpu_num": "1",
+    "mem_size": "2048",
+    "disk_size": "10000",
+    "os_iso_url": "",
+    "os_iso_path": "",
+    "os_iso_checksum": "",
+    "os_iso_checksum_type": "",
+    "vmtools_iso_path": ""
+  },
+  "sensitive-variables": [
+    "vsphere_password",
+    "winadmin_password"
+  ],
+  "builders": [
+    {
+      "type": "vsphere-iso",
+      "username": "{{user `vsphere_user`}}",
+      "vcenter_server": "{{user `vsphere_server`}}",
+      "insecure_connection": "true",
+      "datacenter": "{{user `vsphere_dc_name`}}",
+      "host": "{{user `vsphere_host`}}",
+      "datastore": "{{user `vsphere_datastore`}}",
+      "vm_name": "{{user `vsphere_template_name`}}",
+      "folder": "{{user `vsphere_folder`}}",
+      "CPUs": "{{user `cpu_num`}}",
+      "RAM": "{{user `mem_size`}}",
+      "RAM_reserve_all": true,
+      "firmware": "bios",
+      "communicator": "winrm",
+      "winrm_username": "Administrator",
+      "winrm_password": "{{user `windows_admin_password`}}",
+      "disk_controller_type": "lsilogic-sas",
+      "floppy_files": [
+        "answer_files/win2019core/autounattend.xml",
+        "scripts/Enable-WinRM.ps1",
+        "scripts/Install-VMTools.ps1",
+        "scripts/Set-Default-Shell.ps1",
+        "scripts/SysPrepWin.ps1"
+      ],
+      "guest_os_type": "windows9_64Guest",
+      "iso_paths": [
+        "{{user `os_iso_path`}}",
+        "{{user `vmtools_iso_path`}}"
+      ],
+      "remove_cdrom": true,
+      "network_adapters": [
+        {
+          "network_card": "vmxnet3"
+        }
+      ],
+      "password": "{{user `vsphere_password`}}",
+      "resource_pool": "{{user `vsphere_resource_pool`}}",
+      "storage": [
+        {
+          "disk_size": "{{user `disk_size`}}",
+          "disk_thin_provisioned": true
+        }
+      ],
+      "convert_to_template": true,
+      "notes": "created on: {{isotime}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "inline": [
+        "dir c:\\"
+      ],
+      "type": "windows-shell"
+    }
+  ]
+}

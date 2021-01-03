@@ -1,0 +1,96 @@
+version: '3'
+
+services:
+    sql_1:
+        container_name: sql_node_01
+        image: mssql2019-custom:latest
+        hostname: sql_node_01
+        domainname: lab.local
+        build:
+           context: .
+           dockerfile: dockerfile
+        ports:
+            - "20001:1433"
+        extra_hosts:
+            sql_node_02.lab.local: "172.16.238.22"
+            sql_node_03.lab.local: "172.16.238.23"
+        networks:
+            internal:
+                ipv4_address: 172.16.238.21            
+        env_file:
+            - ../env/sqlserver.env
+            - ../env/sapassword.env
+        volumes:
+            - sqlsystem1:/var/opt/mssql/
+            - sqldata1:/var/opt/sqlserver/data
+            - sqllog1:/var/opt/sqlserver/log
+            - sqlbackup:/var/opt/sqlserver/backup
+
+    sql_2:
+        container_name: sql_node_02
+        image: mssql2019-custom:latest
+        hostname: sql_node_02
+        domainname: lab.local
+        build:
+           context: .
+           dockerfile: dockerfile
+        ports:
+            - "20002:1433"
+        extra_hosts:
+            sql_node_01.lab.local: "172.16.238.21"
+            sql_node_03.lab.local: "172.16.238.23"
+        networks:
+            internal:
+                ipv4_address: 172.16.238.22            
+        env_file:
+            - ../env/sqlserver.env
+            - ../env/sapassword.env
+        volumes:
+            - sqlsystem2:/var/opt/mssql/
+            - sqldata2:/var/opt/sqlserver/data
+            - sqllog2:/var/opt/sqlserver/log
+            - sqlbackup:/var/opt/sqlserver/backup
+
+    sql_3:
+        container_name: sql_node_03
+        image: mssql2019-custom:latest
+        hostname: sql_node_03
+        domainname: lab.local
+        build:
+           context: .
+           dockerfile: dockerfile
+        ports:
+            - "20003:1433"
+        extra_hosts:
+            sql_node_01.lab.local: "172.16.238.21"
+            sql_node_02.lab.local: "172.16.238.22"
+        networks:
+            internal:
+                ipv4_address: 172.16.238.23            
+        env_file:
+            - ../env/sqlserver.env
+            - ../env/sapassword.env
+        volumes:
+            - sqlsystem3:/var/opt/mssql/
+            - sqldata3:/var/opt/sqlserver/data
+            - sqllog3:/var/opt/sqlserver/log
+            - sqlbackup:/var/opt/sqlserver/backup
+
+networks:
+    internal:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.16.238.0/24
+
+volumes:
+    sqlsystem1:
+    sqlsystem2:
+    sqlsystem3:
+    sqldata1:
+    sqldata2:
+    sqldata3:
+    sqllog1:
+    sqllog2:
+    sqllog3:    
+    sqlbackup:              

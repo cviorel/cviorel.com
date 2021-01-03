@@ -1,0 +1,18 @@
+{
+    "vsphere_server": "vsphere.local",
+    "vsphere_user": "administrator@vsphere.local",
+    "vsphere_password": "YourSecretPasswordHere",
+    "vsphere_template_name": "Win2019Core",
+    "vsphere_folder": "Templates",
+    "vsphere_dc_name": "NUC",
+    "vsphere_resource_pool": "Packer",
+    "vsphere_host": "esxi01.vsphere.local",
+    "vsphere_portgroup_name": "lab_portgroup",
+    "vsphere_datastore": "N3_SSD",
+    "windows_admin_password": "SecretPaSSword",
+    "cpu_num": "2",
+    "mem_size": "4096",
+    "disk_size": "32768",
+    "os_iso_path": "[iso] WIN2019/17763.737.190906-2324.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us_1.iso",
+    "vmtools_iso_path": "[iso] VMware Tools/VMware-tools-windows-11.1.1-16303738.iso"
+}
