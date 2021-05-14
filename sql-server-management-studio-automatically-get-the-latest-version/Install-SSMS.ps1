@@ -41,8 +41,8 @@ Function Install-SSMS {
         License: MIT https://opensource.org/licenses/MIT
 
     .LINK
-        https://www.cviorel.com/2017/01/27/silently-download-and-install-sql-server-management-studio-ssms
-        https://www.cviorel.com/2020/12/20/sql-server-management-studio-automatically-get-the-latest-version
+        https://www.cviorel.com/silently-download-and-install-sql-server-management-studio-ssms/
+        https://www.cviorel.com/sql-server-management-studio-automatically-get-the-latest-version/
 
     .EXAMPLE
         Install-SSMS -WriteLog 1
