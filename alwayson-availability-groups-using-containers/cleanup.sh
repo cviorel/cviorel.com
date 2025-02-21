@@ -18,5 +18,3 @@ docker volume rm linux_sqlsystem2
 docker volume rm linux_sqldata3
 docker volume rm linux_sqllog3
 docker volume rm linux_sqlsystem3
-
-

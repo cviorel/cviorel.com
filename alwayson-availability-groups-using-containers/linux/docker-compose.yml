@@ -1,5 +1,3 @@
-version: '3'
-
 services:
     sql_1:
         container_name: sql_node_01
@@ -16,7 +14,7 @@ services:
             sql_node_03.lab.local: "172.16.238.23"
         networks:
             internal:
-                ipv4_address: 172.16.238.21            
+                ipv4_address: 172.16.238.21
         env_file:
             - ../env/sqlserver.env
             - ../env/sapassword.env
@@ -41,7 +39,7 @@ services:
             sql_node_03.lab.local: "172.16.238.23"
         networks:
             internal:
-                ipv4_address: 172.16.238.22            
+                ipv4_address: 172.16.238.22
         env_file:
             - ../env/sqlserver.env
             - ../env/sapassword.env
@@ -66,7 +64,7 @@ services:
             sql_node_02.lab.local: "172.16.238.22"
         networks:
             internal:
-                ipv4_address: 172.16.238.23            
+                ipv4_address: 172.16.238.23
         env_file:
             - ../env/sqlserver.env
             - ../env/sapassword.env
@@ -92,5 +90,5 @@ volumes:
     sqldata3:
     sqllog1:
     sqllog2:
-    sqllog3:    
-    sqlbackup:              
+    sqllog3:
+    sqlbackup:

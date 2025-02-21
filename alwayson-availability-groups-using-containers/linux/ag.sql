@@ -12,11 +12,11 @@ create login, master key and certificate on primary
 :CONNECT $(node_01) -U $(sa_user) -P $(sa_password)
 USE master
 GO
- 
+
 CREATE LOGIN dbm_login WITH PASSWORD = N'$(dbm_login_password)';
 CREATE USER dbm_user FOR LOGIN dbm_login;
 GO
- 
+
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = N'$(encryption_password)';
 go
 CREATE CERTIFICATE dbm_certificate WITH SUBJECT = 'dbm';
@@ -35,11 +35,11 @@ create login, master key and certificate on secondaries
 CREATE LOGIN dbm_login WITH PASSWORD = N'$(dbm_login_password)';
 CREATE USER dbm_user FOR LOGIN dbm_login;
 GO
- 
+
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = N'$(encryption_password)';
 GO
 
-CREATE CERTIFICATE dbm_certificate   
+CREATE CERTIFICATE dbm_certificate
     AUTHORIZATION dbm_user
     FROM FILE = '/var/opt/sqlserver/backup/dbm_certificate.cer'
     WITH PRIVATE KEY (
@@ -53,11 +53,11 @@ GO
 CREATE LOGIN dbm_login WITH PASSWORD = N'$(dbm_login_password)';
 CREATE USER dbm_user FOR LOGIN dbm_login;
 GO
- 
+
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = N'$(encryption_password)';
 GO
 
-CREATE CERTIFICATE dbm_certificate   
+CREATE CERTIFICATE dbm_certificate
     AUTHORIZATION dbm_user
     FROM FILE = '/var/opt/sqlserver/backup/dbm_certificate.cer'
     WITH PRIVATE KEY (
@@ -205,8 +205,8 @@ BEGIN
    print 'It was stopped, starting it...'
 
    ALTER EVENT SESSION AlwaysOn_health
-   ON SERVER  
-   STATE = START; 
+   ON SERVER
+   STATE = START;
 
    PRINT 'AlwaysOn_health XE Session started'
 END
@@ -233,8 +233,8 @@ BEGIN
    print 'It was stopped, starting it...'
 
    ALTER EVENT SESSION AlwaysOn_health
-   ON SERVER  
-   STATE = START; 
+   ON SERVER
+   STATE = START;
 
    PRINT 'AlwaysOn_health XE Session started'
 END
@@ -261,8 +261,8 @@ BEGIN
    print 'It was stopped, starting it...'
 
    ALTER EVENT SESSION AlwaysOn_health
-   ON SERVER  
-   STATE = START; 
+   ON SERVER
+   STATE = START;
 
    PRINT 'AlwaysOn_health XE Session started'
 END
@@ -271,4 +271,3 @@ BEGIN
    PRINT 'AlwaysOn_health is running!'
 END
 GO
-

@@ -16,7 +16,7 @@ echo ":: $(date '+%F %T') Waiting for SQL Server to start"
 
 while [[ $DBSTATUS -ne 0 ]] && [[ $i -lt $TIMEOUT ]] && [[ $ERRCODE -ne 0 ]]; do
     i=$i+1
-    DBSTATUS=$(/opt/mssql-tools/bin/sqlcmd -h -1 -t 1 -U sa -P $SA_PASSWORD -Q "SET NOCOUNT ON; select SUM(state) from sys.databases" | tr -d '[:space:]')
+    DBSTATUS=$(/opt/mssql-tools/bin/sqlcmd -h -1 -t 1 -U sa -P $MSSQL_SA_PASSWORD -Q "SET NOCOUNT ON; select SUM(state) from sys.databases" | tr -d '[:space:]')
     ERRCODE=$?
     sleep 1
 done
@@ -28,9 +28,9 @@ fi
 
 echo ":: $(date '+%F %T') Setting up the Availability Group"
 # We run this only from the first node that will be the primary
-if [[ $(hostname -s) = "sql_node_01" ]]; then    
-    /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -d master -i /usr/config/ag.sql
-fi    
+if [[ $(hostname -s) = "sql_node_01" ]]; then
+    /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $MSSQL_SA_PASSWORD -d master -i /usr/config/ag.sql
+fi
 
 # Remove the config files and the secrets
 rm -rf /usr/config/*
